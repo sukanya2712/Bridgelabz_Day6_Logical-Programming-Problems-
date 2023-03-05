@@ -1,79 +1,39 @@
 package com.bridgelabz;
 
-public class CouponNumbers {
-    
+import java.util.Random;
+
+public class CouponGenerator {
+    // Returns a random integer between 1 and n (inclusive)
     public static int generateRandomNumber(int n) {
         Random rand = new Random();
         return rand.nextInt(n) + 1;
     }
     
-    // Function to generate distinct coupon numbers
-    public static int[] generateDistinctCoupons(int n) {
-        int[] coupons = new int[n];
-        int count = 0;
+    // Returns the total number of random numbers needed to generate all n distinct coupon numbers
+    public static int generateDistinctCoupons(int n) {
+        boolean[] coupons = new boolean[n]; // stores whether each coupon has been generated yet
+        int count = 0; // keeps track of the number of random numbers generated
+        int distinctCount = 0; // keeps track of the number of distinct coupons generated
         
-        while (count < n) {
+        while (distinctCount < n) {
             int coupon = generateRandomNumber(n);
-            boolean isDistinct = true;
+            count++;
             
-            // Check if the generated coupon number is already present in the array
-            for (int i = 0; i < count; i++) {
-                if (coupons[i] == coupon) {
-                    isDistinct = false;
-                    break;
-                }
-            }
-            
-            // If the generated coupon number is distinct, add it to the array
-            if (isDistinct) {
-                coupons[count] = coupon;
-                count++;
+            if (!coupons[coupon - 1]) {
+                coupons[coupon - 1] = true;
+                distinctCount++;
             }
         }
         
-        return coupons;
+        return count;
     }
     
-    // Function to find the total random numbers needed to have all distinct numbers
-    public static int findTotalRandomNumbers(int n) {
-        int[] coupons = new int[n];
-        int count = 0;
-        int randomCount = 0;
-        
-        while (count < n) {
-            int coupon = generateRandomNumber(n);
-            randomCount++;
-            boolean isDistinct = true;
-            
-            // Check if the generated coupon number is already present in the array
-            for (int i = 0; i < count; i++) {
-                if (coupons[i] == coupon) {
-                    isDistinct = false;
-                    break;
-                }
-            }
-            
-            // If the generated coupon number is distinct, add it to the array
-            if (isDistinct) {
-                coupons[count] = coupon;
-                count++;
-            }
-        }
-        
-        return randomCount;
-    }
     public static void main(String[] args) {
-        int n = 10;
-        int[] coupons = generateDistinctCoupons(n);
+      
+         Scanner sc=new Scanner(System.in);
+         int a = sc.nextInt();
+        int count = generateDistinctCoupons(a);
         
-        System.out.println("Distinct coupon numbers:");
-        for (int i = 0; i < n; i++) {
-            System.out.print(coupons[i] + " ");
-        }
-        System.out.println();
-        
-        int totalRandomNumbers = findTotalRandomNumbers(n);
-        System.out.println("Total random numbers needed to have all distinct numbers: " + totalRandomNumbers);
-
+        System.out.println("Total random numbers needed to generate all " + n + " distinct coupons: " + count);
     }
 }
