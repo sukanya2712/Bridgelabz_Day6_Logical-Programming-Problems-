@@ -9,7 +9,7 @@ public class CouponGenerator {
         return rand.nextInt(n) + 1;
     }
     
-    // Returns the total number of random numbers needed to generate all n distinct coupon numbers
+    // Returns total number of random numbers needed to generate all n distinct coupon numbers
     public static int generateDistinctCoupons(int n) {
         boolean[] coupons = new boolean[n]; // stores whether each coupon has been generated yet
         int count = 0; // keeps track of the number of random numbers generated
